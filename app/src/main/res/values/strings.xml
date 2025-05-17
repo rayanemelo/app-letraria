@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Letraria</string>
+    <string name="login">Login</string>
+    <string name="icon">Icon</string>
+    <string name="email">Email</string>
+    <string name="senha">Senha</string>
+    <string name="confirmar_senha">Confirmar Senha</string>
+    <string name="entrar">Entrar</string>
+    <string name="cadastre_se">Não tem uma conta? Cadastre-se</string>
+    <string name="cadastro">Cadastro</string>
+    <string name="cadastrar">Cadastrar</string>
+    <string name="voltar">Voltar</string>
+</resources>
