@@ -10,4 +10,15 @@
     <string name="cadastro">Cadastro</string>
     <string name="cadastrar">Cadastrar</string>
     <string name="voltar">Voltar</string>
+    <string name="meus_livros">Meus Livros</string>
+    <string name="add_livros">Adicionar livro</string>
+    <string name="nenhum_livro_encontrado">Nenhum Livro Encontrado</string>
+    <string name="author">Autor</string>
+    <string name="titulo">Titulo</string>
+    <string-array name="status_livro">
+        <item>Lido</item>
+        <item>Lendo</item>
+        <item>Quero ler</item>
+    </string-array>
+
 </resources>

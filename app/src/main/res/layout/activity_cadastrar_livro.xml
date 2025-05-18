@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/main"
     android:layout_height="match_parent"
-    android:background="#FAFAFA">
+    android:background="@color/bg">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@color/primary"
-            android:text="@string/cadastro"
+            android:text="@string/add_livros"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:gravity="center"
@@ -29,65 +30,47 @@
             android:paddingHorizontal="24sp"
             android:layout_marginBottom="24dp">
 
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="119dp"
-                android:layout_height="124dp"
-                android:contentDescription="@string/login"
-                app:srcCompat="@drawable/icon"
-                android:layout_marginTop="18dp" />
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/app_name"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:textColor="@color/primary"/>
 
             <EditText
-                android:id="@+id/emailInput"
+                android:id="@+id/inputTitulo"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:autofillHints="@string/email"
-                android:hint="@string/email"
+                android:autofillHints="@string/titulo"
+                android:hint="@string/titulo"
                 android:background="@drawable/edittext_background"
                 android:paddingHorizontal="16dp"
-                android:inputType="textEmailAddress"
+                android:inputType="text"
                 android:layout_marginBottom="16dp"
                 android:layout_marginTop="50dp"/>
 
             <EditText
-                android:id="@+id/passwordInput"
+                android:id="@+id/inputAutor"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:hint="@string/senha"
-                android:autofillHints="@string/senha"
+                android:hint="@string/author"
+                android:autofillHints="@string/author"
                 android:background="@drawable/edittext_background"
                 android:paddingHorizontal="16dp"
-                android:inputType="textPassword"
-                android:layout_marginBottom="16dp" />
-            <EditText
-                android:id="@+id/confirmPasswordInput"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:hint="@string/confirmar_senha"
-                android:autofillHints="@string/confirmar_senha"
-                android:background="@drawable/edittext_background"
-                android:paddingHorizontal="16dp"
-                android:inputType="textPassword"
+                android:inputType="text"
                 android:layout_marginBottom="24dp" />
 
+            <Spinner
+                android:id="@+id/spinnerStatus"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/edittext_background"
+                android:paddingHorizontal="16dp"
+                android:layout_marginBottom="24dp"/>
+
             <Button
-                android:id="@+id/buttonCadastrar"
+                android:id="@+id/button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:backgroundTint="@color/primary"
                 android:padding="16dp"
-                android:text="@string/cadastrar"
-                android:onClick="cadastrar"
+                android:text="@string/add_livros"
+                android:onClick="cadastrarLivro"
                 android:textColor="@android:color/white"
                 android:textSize="16sp" />
 
@@ -96,7 +79,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/voltar"
-                android:onClick="acessarLogin"
+                android:onClick="voltar"
                 android:textColor="@color/primary"
                 android:textSize="14sp"
                 android:layout_marginTop="24dp" />

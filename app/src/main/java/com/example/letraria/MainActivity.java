@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         passwordInput = findViewById(R.id.passwordInput);
     }
 
-    private void validarLogin() {
+    public void logar(View v) {
         String email = emailInput.getText().toString().trim();
         String senha = passwordInput.getText().toString().trim();
 
@@ -60,11 +60,8 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        Toast.makeText(this, "Login realizado com sucesso!", Toast.LENGTH_SHORT).show();
-
-    }
-    public void logar(View v) {
-        this.validarLogin();
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
     }
 
     public void acessarCadastro(View v) {
