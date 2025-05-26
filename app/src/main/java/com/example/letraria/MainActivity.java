@@ -3,6 +3,7 @@ package com.example.letraria;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -13,8 +14,14 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.letraria.entities.UserEntity;
+import com.example.letraria.global.UserSession;
+import com.example.letraria.repositories.UserRepository;
+
 public class MainActivity extends AppCompatActivity {
     EditText emailInput, passwordInput;
+    private UserRepository userRepository;
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -28,9 +35,12 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        userRepository = new UserRepository(this);
+
         emailInput = findViewById(R.id.emailInput);
         passwordInput = findViewById(R.id.passwordInput);
     }
+
 
     public void logar(View v) {
         String email = emailInput.getText().toString().trim();
@@ -60,8 +70,23 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
+        UserEntity userExists = userRepository.findByEmail(email);
+        Log.d("LOGIN", "Usuário encontrado: " + userExists);
+        if (userExists == null) {
+            emailInput.setError("Usuário não encontrado");
+            return;
+        }
+
+        if (!userExists.getPassword().equals(senha)) {
+            passwordInput.setError("Senha incorreta");
+            return;
+        }
+
+        UserSession.getInstance(this).setUser(userExists);
+
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
+        finish();
     }
 
     public void acessarCadastro(View v) {
