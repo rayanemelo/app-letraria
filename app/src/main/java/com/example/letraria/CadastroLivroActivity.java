@@ -3,6 +3,7 @@ package com.example.letraria;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -13,12 +14,16 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class CadastroLivroActivity extends AppCompatActivity {
+import com.example.letraria.entities.BookEntity;
+import com.example.letraria.entities.UserEntity;
+import com.example.letraria.global.UserSession;
+import com.example.letraria.repositories.BookRepository;
 
+public class CadastroLivroActivity extends AppCompatActivity {
     private EditText inputTitulo;
     private EditText inputAutor;
     private Spinner spinnerStatus;
-
+    private BookRepository bookRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +41,7 @@ public class CadastroLivroActivity extends AppCompatActivity {
         );
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerStatus.setAdapter(adapter);
-
+        bookRepository = new BookRepository(this);
     }
 
     public void cadastrarLivro(View v) {
@@ -56,15 +61,47 @@ public class CadastroLivroActivity extends AppCompatActivity {
             return;
         }
 
-        Toast.makeText(this,
-                "Livro cadastrado:\nTítulo: " + titulo +
-                        "\nAutor: " + autor +
-                        "\nStatus: " + status,
-                Toast.LENGTH_LONG).show();
+        UserEntity user = UserSession.getInstance(this).getUser();
+        int userId = user.getUserId();
 
-        inputTitulo.setText("");
-        inputAutor.setText("");
-        spinnerStatus.setSelection(0);
+        int statusInt;
+        switch (status) {
+            case "Quero Ler":
+                statusInt = 0;
+                break;
+            case "Lendo":
+                statusInt = 1;
+                break;
+            case "Lido":
+                statusInt = 2;
+                break;
+            default:
+                Toast.makeText(this, "Status inválido", Toast.LENGTH_SHORT).show();
+                return;
+        }
+
+        BookEntity newBook = new BookEntity();
+        newBook.setUserId(userId);
+        newBook.setTitle(titulo);
+        newBook.setAutor(autor);
+        newBook.setStatus(statusInt);
+
+        try {
+            bookRepository.save(newBook);
+            Toast.makeText(this,
+                    "Livro cadastrado com sucesso!",
+                    Toast.LENGTH_SHORT).show();
+
+            inputTitulo.setText("");
+            inputAutor.setText("");
+            spinnerStatus.setSelection(0);
+
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+            finish();
+        } catch (Exception e) {
+            Toast.makeText(this, "Erro ao cadastrar livro: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void voltar(View v) {
