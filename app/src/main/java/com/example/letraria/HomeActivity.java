@@ -13,17 +13,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.letraria.adapters.BookAdapter;
+import com.example.letraria.entities.BookEntity;
+import com.example.letraria.entities.UserEntity;
+import com.example.letraria.global.UserSession;
+import com.example.letraria.repositories.BookRepository;
+
 import java.util.ArrayList;
 import java.util.List;
-
 public class HomeActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private BookAdapter adapter;
-    private List<Book> todosLivros = new ArrayList<>();
-    private List<Book> livrosFiltrados = new ArrayList<>();
+    private List<BookEntity> todosLivros = new ArrayList<>();
+    private List<BookEntity> livrosFiltrados = new ArrayList<>();
     private Spinner spinner;
     private TextView textViewEmpty;
+    private BookRepository bookRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +42,7 @@ public class HomeActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Mock de dados
-        todosLivros.add(new Book("Crime e Castigo", "Dostoiévski", "Lido"));
-        todosLivros.add(new Book("Código Limpo", "Robert Cecil Martin", "Lido"));
-        todosLivros.add(new Book("Jantar Secreto", "Raphael Montes", "Quero Ler"));
-        todosLivros.add(new Book("O Alquimista", "Paulo Coelho", "Lendo"));
+        bookRepository = new BookRepository(this);
 
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_item,
@@ -61,6 +63,36 @@ public class HomeActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+
+        loadBooks();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadBooks();
+    }
+
+    private void loadBooks() {
+        UserEntity user = UserSession.getInstance(this).getUser();
+        if (user == null) {
+            Toast.makeText(this, "Usuário não autenticado", Toast.LENGTH_SHORT).show();
+            textViewEmpty.setVisibility(View.VISIBLE);
+            textViewEmpty.setText("Usuário não autenticado");
+            todosLivros.clear();
+            filtrarLivros(spinner.getSelectedItem().toString());
+            return;
+        }
+
+        try {
+            int userId = user.getUserId();
+            todosLivros = bookRepository.getBookByUserId(userId);
+            filtrarLivros(spinner.getSelectedItem().toString());
+        } catch (Exception e) {
+            Toast.makeText(this, "Erro ao carregar livros: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            todosLivros.clear();
+            filtrarLivros(spinner.getSelectedItem().toString());
+        }
     }
 
     private void filtrarLivros(String status) {
@@ -68,14 +100,33 @@ public class HomeActivity extends AppCompatActivity {
         if (status.equals("Todos")) {
             livrosFiltrados.addAll(todosLivros);
         } else {
-            for (Book livro : todosLivros) {
-                if (livro.getStatus().equalsIgnoreCase(status)) {
+            int statusInt;
+            switch (status) {
+                case "Quero Ler":
+                    statusInt = 0;
+                    break;
+                case "Lendo":
+                    statusInt = 1;
+                    break;
+                case "Lido":
+                    statusInt = 2;
+                    break;
+                default:
+                    return;
+            }
+            for (BookEntity livro : todosLivros) {
+                if (livro.getStatus() == statusInt) {
                     livrosFiltrados.add(livro);
                 }
             }
         }
 
         textViewEmpty.setVisibility(livrosFiltrados.isEmpty() ? View.VISIBLE : View.GONE);
+        if (livrosFiltrados.isEmpty() && !status.equals("Todos")) {
+            textViewEmpty.setText("Nenhum livro encontrado para " + status);
+        } else if (livrosFiltrados.isEmpty()) {
+            textViewEmpty.setText("Nenhum livro cadastrado");
+        }
 
         adapter = new BookAdapter(livrosFiltrados);
         recyclerView.setAdapter(adapter);

@@ -1,4 +1,4 @@
-package com.example.letraria;
+package com.example.letraria.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,12 +8,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.letraria.R;
+import com.example.letraria.entities.BookEntity;
+
 import java.util.List;
 
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder> {
-    private List<Book> livros;
+    private List<BookEntity> livros;
 
-    public BookAdapter(List<Book> livros) {
+    public BookAdapter(List<BookEntity> livros) {
         this.livros = livros;
     }
 
@@ -24,12 +27,25 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
         return new BookViewHolder(item);
     }
 
-
     @Override
     public void onBindViewHolder(@NonNull BookViewHolder holder, int position) {
-        Book livro = livros.get(position);
-        holder.titulo.setText(livro.getTitulo() + " - " + livro.getAutor());
-        holder.status.setText(livro.getStatus());
+        BookEntity livro = livros.get(position);
+        holder.titulo.setText(livro.getTitle() + " - " + livro.getAutor());
+        String status;
+        switch (livro.getStatus()) {
+            case 0:
+                status = "Quero Ler";
+                break;
+            case 1:
+                status = "Lendo";
+                break;
+            case 2:
+                status = "Lido";
+                break;
+            default:
+                status = "Desconhecido";
+        }
+        holder.status.setText(status);
     }
 
     @Override
