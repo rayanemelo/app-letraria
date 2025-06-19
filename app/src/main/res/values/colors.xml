@@ -1,7 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#6E4B3A</color>
+    <color name="primary">#B3838F</color>
     <color name="bg">#FAFAFA</color>
+
+    <color name="text_primary">#2E2C2F</color>
+    <color name="text_secondary">#6F5A5A</color>
+
+    <color name="accent">#B3838F</color>
+    <color name="highlight">#C9ADA1</color>
+    <color name="bookmark_color">#A44A3F</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>

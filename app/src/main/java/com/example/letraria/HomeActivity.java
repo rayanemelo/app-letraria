@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,11 +18,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.letraria.adapters.BookAdapter;
 import com.example.letraria.entities.BookEntity;
 import com.example.letraria.entities.UserEntity;
+import com.example.letraria.enums.BookStatus;
 import com.example.letraria.global.UserSession;
 import com.example.letraria.repositories.BookRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+
 public class HomeActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
@@ -48,6 +52,7 @@ public class HomeActivity extends AppCompatActivity {
                 this, android.R.layout.simple_spinner_item,
                 new String[]{"Todos", "Lido", "Lendo", "Quero Ler"}
         );
+        ImageButton buttonLogout = findViewById(R.id.buttonLogout);
 
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(spinnerAdapter);
@@ -129,11 +134,29 @@ public class HomeActivity extends AppCompatActivity {
         }
 
         adapter = new BookAdapter(livrosFiltrados);
+        adapter.setOnItemClickListener(livro -> {
+            Intent intent = new Intent(HomeActivity.this, BookDetailActivity.class);
+            intent.putExtra("id", livro.getBookId());
+            intent.putExtra("title", livro.getTitle());
+            intent.putExtra("author", livro.getAutor());
+            intent.putExtra("status", BookStatus.fromValue(livro.getStatus()).getLabel());
+            startActivity(intent);
+        });
         recyclerView.setAdapter(adapter);
     }
 
     public void adicionarLivro(View v) {
         Intent intent = new Intent(this, CadastroLivroActivity.class);
         startActivity(intent);
+    }
+
+
+    public void logout(View view) {
+        UserSession.getInstance(this).setUser(null);
+
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 }

@@ -15,10 +15,23 @@
     <string name="nenhum_livro_encontrado">Nenhum Livro Encontrado</string>
     <string name="author">Autor</string>
     <string name="titulo">Titulo</string>
+    <string name="filtrar">Filtrar</string>
+    <string name="excluir">Excluir</string>
+    <string name="editar">Editar</string>
     <string-array name="status_livro">
         <item>Lido</item>
         <item>Lendo</item>
         <item>Quero ler</item>
     </string-array>
+    <string name="label_email">Insira seu e-mail</string>
+    <string name="label_senha">Insira sua senha</string>
+    <string name="label_titulo">Insira o título do livro</string>
+    <string name="label_autor">Insira o nome do autor</string>
+    <string name="status">Status</string>
+    <string name="titulo_exemplo">O Nome do Vento</string>
+    <string name="autor_exemplo">Patrick Rothfuss</string>
+    <string name="status_exemplo">Status: Lido</string>
+    <string name="logout">Sair</string>
+
 
 </resources>

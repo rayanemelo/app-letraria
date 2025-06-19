@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:id="@+id/main"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg">
 
@@ -11,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <TextView
             android:id="@+id/textViewHeader"
             android:layout_width="match_parent"
@@ -18,61 +17,92 @@
             android:background="@color/primary"
             android:text="@string/add_livros"
             android:textColor="@color/white"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:gravity="center"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:fontFamily="@font/lora"
+            android:elevation="4dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center_horizontal"
-            android:paddingHorizontal="24sp"
-            android:layout_marginBottom="24dp">
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="24dp">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/titulo"
+                android:textColor="@color/text_secondary"
+                android:textSize="14sp"
+                android:layout_marginBottom="4dp"
+                android:fontFamily="@font/merriweather" />
 
             <EditText
                 android:id="@+id/inputTitulo"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:autofillHints="@string/titulo"
-                android:hint="@string/titulo"
+                android:layout_height="45dp"
                 android:background="@drawable/edittext_background"
                 android:paddingHorizontal="16dp"
                 android:inputType="text"
-                android:layout_marginBottom="16dp"
-                android:layout_marginTop="50dp"/>
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:fontFamily="@font/merriweather"
+                android:hint="@string/label_titulo"
+                android:layout_marginBottom="16dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/author"
+                android:textColor="@color/text_secondary"
+                android:textSize="14sp"
+                android:layout_marginBottom="4dp"
+                android:fontFamily="@font/merriweather" />
 
             <EditText
                 android:id="@+id/inputAutor"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:hint="@string/author"
-                android:autofillHints="@string/author"
+                android:layout_height="45dp"
                 android:background="@drawable/edittext_background"
                 android:paddingHorizontal="16dp"
                 android:inputType="text"
-                android:layout_marginBottom="24dp" />
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:fontFamily="@font/merriweather"
+                android:hint="@string/label_autor"
+                android:layout_marginBottom="16dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/status"
+                android:textColor="@color/text_secondary"
+                android:textSize="14sp"
+                android:layout_marginBottom="4dp"
+                android:fontFamily="@font/merriweather" />
 
             <Spinner
                 android:id="@+id/spinnerStatus"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="45dp"
                 android:background="@drawable/edittext_background"
                 android:paddingHorizontal="16dp"
-                android:layout_marginBottom="24dp"/>
+                android:layout_marginBottom="24dp" />
 
             <Button
                 android:id="@+id/button"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_height="50dp"
                 android:backgroundTint="@color/primary"
-                android:padding="16dp"
                 android:text="@string/add_livros"
                 android:onClick="cadastrarLivro"
                 android:textColor="@android:color/white"
-                android:textSize="16sp" />
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                android:fontFamily="@font/lora" />
 
             <TextView
                 android:id="@+id/signupLink"
@@ -82,7 +112,8 @@
                 android:onClick="voltar"
                 android:textColor="@color/primary"
                 android:textSize="14sp"
-                android:layout_marginTop="24dp" />
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/lora" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

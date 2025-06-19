@@ -16,6 +16,8 @@
         <activity android:name=".CadastroActivity" />
         <activity android:name=".CadastroLivroActivity" />
         <activity android:name=".HomeActivity" />
+        <activity android:name=".BookDetailActivity" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">

@@ -104,5 +104,31 @@ public class BookRepository {
         return book;
     }
 
+    public boolean deleteBook(int bookId) {
+        int affectedRows = database.delete(
+                tableName,
+                tableColumns[0] + " = ?",
+                new String[]{String.valueOf(bookId)}
+        );
+
+        return affectedRows > 0;
+    }
+
+    public boolean updateBook(BookEntity book) {
+        ContentValues values = new ContentValues();
+        values.put("title", book.getTitle());
+        values.put("autor", book.getAutor());
+        values.put("status", book.getStatus());
+        values.put("updated_at", book.getUpdatedAt().toString());
+
+        int affectedRows = database.update(
+                tableName,
+                values,
+                "book_id = ?",
+                new String[]{String.valueOf(book.getBookId())}
+        );
+
+        return affectedRows > 0;
+    }
 
 }
