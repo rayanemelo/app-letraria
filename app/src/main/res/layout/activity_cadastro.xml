@@ -144,7 +144,8 @@
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textAllCaps="false"
-                android:paddingVertical="12dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
                 android:fontFamily="@font/lora" />
         </LinearLayout>
     </LinearLayout>

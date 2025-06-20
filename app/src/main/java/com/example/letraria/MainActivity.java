@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
         emailInput = findViewById(R.id.emailInput);
         passwordInput = findViewById(R.id.passwordInput);
+
     }
 
 

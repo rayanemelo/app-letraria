@@ -48,12 +48,12 @@ public class HomeActivity extends AppCompatActivity {
         bookRepository = new BookRepository(this);
 
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(
-                this, android.R.layout.simple_spinner_item,
+                this, R.layout.spinner_item,
                 new String[]{"Todos", "Lido", "Lendo", "Quero Ler"}
         );
+        spinnerAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         ImageButton buttonLogout = findViewById(R.id.buttonLogout);
 
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(spinnerAdapter);
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

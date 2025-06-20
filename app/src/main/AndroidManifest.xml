@@ -13,19 +13,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Letraria"
         tools:targetApi="31" >
-        <activity android:name=".CadastroActivity" />
-        <activity android:name=".CadastroLivroActivity" />
-        <activity android:name=".HomeActivity" />
-        <activity android:name=".BookDetailActivity" />
+        <activity android:name=".CadastroActivity"    android:theme="@style/Theme.Letraria" />
+        <activity android:name=".CadastroLivroActivity"   android:theme="@style/Theme.Letraria" />
+        <activity android:name=".HomeActivity"   android:theme="@style/Theme.Letraria" />
+        <activity android:name=".BookDetailActivity"  android:theme="@style/Theme.Letraria"  />
 
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.Letraria">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 </manifest>

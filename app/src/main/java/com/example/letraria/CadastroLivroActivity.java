@@ -70,24 +70,15 @@ public class CadastroLivroActivity extends AppCompatActivity {
             });
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, statusArray) {
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                View view = super.getView(position, convertView, parent);
-                TextView text = (TextView) view;
-                text.setTextSize(14);
-                text.setTypeface(ResourcesCompat.getFont(getContext(), R.font.merriweather));
-                text.setTextColor(ContextCompat.getColor(getContext(), R.color.text_primary));
-                return view;
-            }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                this, R.layout.spinner_item, statusArray) {
 
             @Override
             public View getDropDownView(int position, View convertView, ViewGroup parent) {
                 View view = super.getDropDownView(position, convertView, parent);
                 TextView text = (TextView) view;
-                text.setTextSize(14);
-                text.setTypeface(ResourcesCompat.getFont(getContext(), R.font.merriweather));
                 text.setTextColor(ContextCompat.getColor(getContext(), R.color.text_primary));
+                text.setTypeface(ResourcesCompat.getFont(getContext(), R.font.merriweather));
                 return view;
             }
         };
