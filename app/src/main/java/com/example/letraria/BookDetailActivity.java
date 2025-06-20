@@ -1,10 +1,11 @@
 package com.example.letraria;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,9 +18,12 @@ import com.example.letraria.repositories.BookRepository;
 public class BookDetailActivity extends AppCompatActivity {
 
     private TextView textTitle, textAuthor, textStatus;
+    private ImageView[] stars;
     private BookRepository bookRepository;
+
     private int bookId;
     private String title, author;
+    private int nota;
     private BookStatus status;
 
     @Override
@@ -30,18 +34,30 @@ public class BookDetailActivity extends AppCompatActivity {
         textTitle = findViewById(R.id.textTitle);
         textAuthor = findViewById(R.id.textAuthor);
         textStatus = findViewById(R.id.textStatus);
+
+        stars = new ImageView[]{
+                findViewById(R.id.star1),
+                findViewById(R.id.star2),
+                findViewById(R.id.star3),
+                findViewById(R.id.star4),
+                findViewById(R.id.star5)
+        };
+
         bookRepository = new BookRepository(this);
 
         bookId = getIntent().getIntExtra("id", -1);
         title = getIntent().getStringExtra("title");
         author = getIntent().getStringExtra("author");
         String statusString = getIntent().getStringExtra("status");
+        nota = getIntent().getIntExtra("nota", 0);
 
         status = BookStatus.fromLabel(statusString);
 
         textTitle.setText(title);
         textAuthor.setText(author);
         textStatus.setText("Status: " + (status != null ? status.getLabel() : "Desconhecido"));
+
+        updateStarIcons(nota);
     }
 
     public void editar(View v) {
@@ -50,6 +66,7 @@ public class BookDetailActivity extends AppCompatActivity {
         intent.putExtra("title", title);
         intent.putExtra("author", author);
         intent.putExtra("status", status != null ? status.getValue() : -1);
+        intent.putExtra("nota", nota);
         startActivity(intent);
     }
 
@@ -74,5 +91,16 @@ public class BookDetailActivity extends AppCompatActivity {
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    private void updateStarIcons(int rating) {
+        Log.d("CadastroLivro", "Nota teste: " + rating);
+        for (int i = 0; i < stars.length; i++) {
+            if (i < rating) {
+                stars[i].setImageResource(R.drawable.ic_star_filled);
+            } else {
+                stars[i].setImageResource(R.drawable.ic_star_outline);
+            }
+        }
     }
 }

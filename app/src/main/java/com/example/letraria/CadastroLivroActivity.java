@@ -2,11 +2,13 @@ package com.example.letraria;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +38,9 @@ public class CadastroLivroActivity extends AppCompatActivity {
     private TextView textViewHeader;
     private Button button;
 
+    private ImageView[] stars;
+    private final int[] selectedRating = {0};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,8 +52,23 @@ public class CadastroLivroActivity extends AppCompatActivity {
         textViewHeader = findViewById(R.id.textViewHeader);
         button = findViewById(R.id.button);
 
-        // Adapter com estilo personalizado para fonte, cor e tamanho
         String[] statusArray = getResources().getStringArray(R.array.status_livro);
+
+        stars = new ImageView[]{
+                findViewById(R.id.star1),
+                findViewById(R.id.star2),
+                findViewById(R.id.star3),
+                findViewById(R.id.star4),
+                findViewById(R.id.star5)
+        };
+
+        for (int i = 0; i < stars.length; i++) {
+            final int rating = i + 1;
+            stars[i].setOnClickListener(v -> {
+                selectedRating[0] = rating;
+                updateStarIcons(stars, rating);
+            });
+        }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, statusArray) {
             @Override
@@ -77,7 +97,6 @@ public class CadastroLivroActivity extends AppCompatActivity {
 
         bookRepository = new BookRepository(this);
 
-        // Verifica se está em modo de edição
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("id")) {
             isEditing = true;
@@ -85,11 +104,14 @@ public class CadastroLivroActivity extends AppCompatActivity {
             String title = intent.getStringExtra("title");
             String author = intent.getStringExtra("author");
             int status = intent.getIntExtra("status", 0);
+            int nota = intent.getIntExtra("nota", 0); // nova linha
+
+            selectedRating[0] = nota;
+            updateStarIcons(stars, nota);
 
             inputTitulo.setText(title);
             inputAutor.setText(author);
 
-            // Corrige a seleção do Spinner baseado no enum
             BookStatus bookStatus = BookStatus.fromValue(status);
             if (bookStatus != null) {
                 String label = bookStatus.getLabel();
@@ -101,7 +123,6 @@ public class CadastroLivroActivity extends AppCompatActivity {
                 }
             }
 
-            // Atualiza o cabeçalho e botão
             textViewHeader.setText("Editar Livro");
             button.setText("Salvar Alterações");
         }
@@ -138,7 +159,10 @@ public class CadastroLivroActivity extends AppCompatActivity {
         book.setTitle(titulo);
         book.setAutor(autor);
         book.setStatus(statusEnum.getValue());
+        book.setNota(selectedRating[0]);
         book.setUpdatedAt(LocalDateTime.now());
+
+        Log.d("CadastroLivro", "Nota selecionada: " + selectedRating[0]);
 
         try {
             if (isEditing) {
@@ -166,5 +190,16 @@ public class CadastroLivroActivity extends AppCompatActivity {
     public void voltar(View v) {
         startActivity(new Intent(this, HomeActivity.class));
         finish();
+    }
+
+    private void updateStarIcons(ImageView[] stars, int rating) {
+
+        for (int i = 0; i < stars.length; i++) {
+            if (i < rating) {
+                stars[i].setImageResource(R.drawable.ic_star_filled);
+            } else {
+                stars[i].setImageResource(R.drawable.ic_star_outline);
+            }
+        }
     }
 }

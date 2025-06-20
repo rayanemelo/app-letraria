@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -140,6 +139,7 @@ public class HomeActivity extends AppCompatActivity {
             intent.putExtra("title", livro.getTitle());
             intent.putExtra("author", livro.getAutor());
             intent.putExtra("status", BookStatus.fromValue(livro.getStatus()).getLabel());
+            intent.putExtra("nota", livro.getNota());
             startActivity(intent);
         });
         recyclerView.setAdapter(adapter);

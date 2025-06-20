@@ -7,7 +7,6 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.letraria.entities.BookEntity;
-import com.example.letraria.entities.UserEntity;
 import com.example.letraria.helpers.DBHelper;
 
 import java.time.LocalDateTime;
@@ -39,6 +38,7 @@ public class BookRepository {
             "title",
             "autor",
             "status",
+            "nota",
             "created_at",
             "updated_at"
     };
@@ -49,8 +49,10 @@ public class BookRepository {
         values.put(tableColumns[2], book.getTitle());
         values.put(tableColumns[3], book.getAutor());
         values.put(tableColumns[4], book.getStatus());
-        values.put(tableColumns[5], book.getCreatedAt().toString());
-        values.put(tableColumns[6], book.getUpdatedAt().toString());
+        values.put(tableColumns[5], book.getNota());
+        values.put(tableColumns[6], book.getCreatedAt().toString());
+        values.put(tableColumns[7], book.getUpdatedAt().toString());
+
         long id = database.insert(tableName, null, values);
         book.setBookId((int) id);
         return book;
@@ -71,8 +73,9 @@ public class BookRepository {
                 book.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(tableColumns[2])));
                 book.setAutor(cursor.getString(cursor.getColumnIndexOrThrow(tableColumns[3])));
                 book.setStatus(cursor.getInt(cursor.getColumnIndexOrThrow(tableColumns[4])));
-                book.setCreatedAt(LocalDateTime.parse(cursor.getString(cursor.getColumnIndexOrThrow(tableColumns[5]))));
-                book.setUpdatedAt(LocalDateTime.parse(cursor.getString(cursor.getColumnIndexOrThrow(tableColumns[6]))));
+                book.setNota(cursor.getInt(cursor.getColumnIndexOrThrow(tableColumns[5])));
+                book.setCreatedAt(LocalDateTime.parse(cursor.getString(cursor.getColumnIndexOrThrow(tableColumns[6]))));
+                book.setUpdatedAt(LocalDateTime.parse(cursor.getString(cursor.getColumnIndexOrThrow(tableColumns[7]))));
                 books.add(book);
             } while (cursor.moveToNext());
         }
@@ -95,8 +98,9 @@ public class BookRepository {
             book.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(tableColumns[2])));
             book.setAutor(cursor.getString(cursor.getColumnIndexOrThrow(tableColumns[3])));
             book.setStatus(cursor.getInt(cursor.getColumnIndexOrThrow(tableColumns[4])));
-            book.setCreatedAt(LocalDateTime.parse(cursor.getString(cursor.getColumnIndexOrThrow(tableColumns[5]))));
-            book.setUpdatedAt(LocalDateTime.parse(cursor.getString(cursor.getColumnIndexOrThrow(tableColumns[6]))));
+            book.setNota(cursor.getInt(cursor.getColumnIndexOrThrow(tableColumns[5])));
+            book.setCreatedAt(LocalDateTime.parse(cursor.getString(cursor.getColumnIndexOrThrow(tableColumns[6]))));
+            book.setUpdatedAt(LocalDateTime.parse(cursor.getString(cursor.getColumnIndexOrThrow(tableColumns[7]))));
         }
 
         cursor.close();
@@ -119,6 +123,7 @@ public class BookRepository {
         values.put("title", book.getTitle());
         values.put("autor", book.getAutor());
         values.put("status", book.getStatus());
+        values.put("nota", book.getNota());
         values.put("updated_at", book.getUpdatedAt().toString());
 
         int affectedRows = database.update(
@@ -130,5 +135,4 @@ public class BookRepository {
 
         return affectedRows > 0;
     }
-
 }

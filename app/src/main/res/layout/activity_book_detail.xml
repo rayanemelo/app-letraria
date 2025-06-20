@@ -5,13 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Container para o botão de voltar e título -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@color/primary"
         android:elevation="4dp">
 
+        <ImageButton
+            android:id="@+id/buttonLogout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="12dp"
+            android:layout_marginStart="12dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/voltar"
+            android:onClick="voltarParaHome"
+            android:src="@drawable/ic_arrow_left"  />
 
         <TextView
             android:id="@+id/textViewHeader"
@@ -24,6 +34,7 @@
             android:textStyle="bold"
             android:fontFamily="@font/lora" />
     </RelativeLayout>
+
 
     <ScrollView
         android:layout_width="match_parent"
@@ -66,21 +77,56 @@
                 android:textColor="@color/text_secondary"
                 android:fontFamily="@font/merriweather"
                 android:layout_marginBottom="24dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nota"
+                android:textColor="@color/text_secondary"
+                android:textSize="16sp"
+                android:fontFamily="@font/merriweather" />
+
+            <LinearLayout
+                android:id="@+id/starRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+
+
+                <ImageView
+                    android:id="@+id/star1"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_star_outline" />
+
+                <ImageView
+                    android:id="@+id/star2"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_star_outline" />
+
+                <ImageView
+                    android:id="@+id/star3"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_star_outline" />
+
+                <ImageView
+                    android:id="@+id/star4"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_star_outline" />
+
+                <ImageView
+                    android:id="@+id/star5"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_star_outline" />
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
-
-    <TextView
-        android:id="@+id/signupLink"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/voltar"
-        android:onClick="voltarParaHome"
-        android:textColor="@color/text_secondary"
-        android:textSize="14sp"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="16dp"
-        android:fontFamily="@font/lora" />
 
     <LinearLayout
         android:orientation="horizontal"

@@ -10,18 +10,35 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textViewHeader"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@color/primary"
-            android:text="@string/cadastro"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:fontFamily="@font/lora"
-            android:elevation="4dp" />
+            android:elevation="4dp">
+
+            <ImageButton
+                android:id="@+id/buttonVoltar"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="5dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/voltar"
+                android:onClick="acessarLogin"
+                android:src="@drawable/ic_arrow_left" />
+
+            <TextView
+                android:id="@+id/textViewHeader"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/cadastro"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:fontFamily="@font/lora" />
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -128,17 +145,6 @@
                 android:textSize="16sp"
                 android:textAllCaps="false"
                 android:paddingVertical="12dp"
-                android:fontFamily="@font/lora" />
-
-            <TextView
-                android:id="@+id/signupLink"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/voltar"
-                android:onClick="acessarLogin"
-                android:textColor="@color/text_secondary"
-                android:textSize="14sp"
-                android:layout_marginTop="24dp"
                 android:fontFamily="@font/lora" />
         </LinearLayout>
     </LinearLayout>

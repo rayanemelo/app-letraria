@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DBHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "books.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 3;
 
     private static final String CREATE_USERS_TABLE = "CREATE TABLE IF NOT EXISTS users (" +
             "user_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -22,6 +22,7 @@ public class DBHelper extends SQLiteOpenHelper {
             "title TEXT NOT NULL, " +
             "autor TEXT NOT NULL, " +
             "status INTEGER NOT NULL, " +
+            "nota INTEGER DEFAULT 0, " +
             "created_at DATETIME DEFAULT CURRENT_TIMESTAMP, " +
             "updated_at DATETIME, " +
             "FOREIGN KEY(user_id) REFERENCES users(user_id) ON DELETE CASCADE);";

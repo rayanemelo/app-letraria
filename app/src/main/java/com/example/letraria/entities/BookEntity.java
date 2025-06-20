@@ -8,14 +8,16 @@ public class BookEntity {
     private String title;
     private String autor;
     private int status;
+    private int nota;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public BookEntity(Integer userId, String title, String autor, int status) {
+    public BookEntity(Integer userId, String title, String autor, int status, int nota) {
         this.userId = userId;
         this.title = title;
         this.autor = autor;
         this.status = status;
+        this.nota = nota;
     }
 
     public BookEntity() {
@@ -61,6 +63,14 @@ public class BookEntity {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public int getNota() {
+        return nota;
+    }
+
+    public void setNota(int nota) {
+        this.nota = nota;
     }
 
     public LocalDateTime getCreatedAt() {
